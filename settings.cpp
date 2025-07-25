@@ -4,7 +4,9 @@
 time_t now;
 struct tm timeinfo;
 Preferences preferences;
-int brightness = 50; // ~20% Starting Brightness
+
+int brightness_level = 3;
+int levels[] = {0,1,25,100,200};
 
 // Timezone (Central Time in this example)
 const char* tz = "CST6CDT,M3.2.0/2,M11.1.0/2";

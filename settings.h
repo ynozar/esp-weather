@@ -6,6 +6,7 @@
 #include <time.h>
 #include <cstring>
 #include <Arduino.h>
+#include "esp_timer.h"
 #include "env.h"
 
 #define LED_PIN     8
@@ -19,7 +20,10 @@
 #define BOOT_BUTTON_PIN 9  
 #define WEATHER_INTERVAL 15
 
-extern int brightness;
+
+extern int brightness_level;
+extern int levels[];
+
 extern time_t now;
 extern struct tm timeinfo;
 extern Preferences preferences;

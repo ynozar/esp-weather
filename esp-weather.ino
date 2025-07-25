@@ -3,6 +3,7 @@
 #include "weather.h"
 
 void IRAM_ATTR AdjustBrightness(); //Boot Button Interrupt
+volatile int64_t last_interrupt_time = 0;
 
 void setup() {
   Serial.begin(115200);
@@ -32,9 +33,12 @@ void loop() {
 }
 
 void IRAM_ATTR AdjustBrightness() {
-  if (brightness == 0) brightness = 1;
-  else brightness += 50;
-  if (brightness > 255) brightness = 0;
-  ledcWrite(TFT_BL, brightness);
-  Serial.println("Boot button pressed!");
+  int64_t now = esp_timer_get_time();  // Time in microseconds
+  if (now - last_interrupt_time > 250000) { // 250ms debounce
+    int brightness = levels[brightness_level % 5]; //5 brightness options in the array
+    ledcWrite(TFT_BL, brightness);
+    Serial.printf("Brightness: %d\n", brightness);
+    brightness_level++;
+    last_interrupt_time = now;
+  }
 }

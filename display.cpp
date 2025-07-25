@@ -15,7 +15,7 @@ void initDisplay() {
   tft.setRotation(3);
 
   ledcAttach(TFT_BL, 5000, 8);
-  ledcWrite(TFT_BL, 128);
+  ledcWrite(TFT_BL, levels[brightness_level%5]);
 
   tft.fillScreen(ST77XX_BLACK);
   tft.setTextColor(ST77XX_WHITE);
@@ -28,11 +28,10 @@ void initDisplay() {
 
   strip.setPixelColor(0, strip.Color(0, 0, 255));
   strip.show();
-  delay(5000);
+  delay(1000);
   strip.clear();
   strip.show();
   tft.fillScreen(ST77XX_BLACK);
-  ledcWrite(TFT_BL, brightness);
 }
 
 void displayTime() {
